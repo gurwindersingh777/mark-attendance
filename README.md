@@ -1,6 +1,6 @@
-# QR Attendance App
+# MarkAttendance – Smart & Secure Attendance Management System
 
-> **Built to replace paper registers.** Teachers generate a QR code that rotates every 30 seconds — students scan to mark attendance instantly. Proxy attendance is blocked through two independent layers: time-based rotating QR codes and GPS location verification.
+Built to replace paper registers. Teachers create attendance sessions with QR codes that rotate every 30 seconds. Students scan the QR code or enter a manual code to mark attendance. GPS-based location verification adds a second layer of protection against proxy attendance.
 
 [![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)](https://www.typescriptlang.org)
@@ -9,13 +9,9 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-06B6D4?logo=tailwindcss)](https://tailwindcss.com)
 [![Vercel](https://img.shields.io/badge/Deployed-Vercel-000000?logo=vercel)](https://vercel.com)
 
-<br/>
+🚀 **[Live Demo](https://qr-attendance--app.vercel.app/)** &nbsp; · &nbsp; 📡 **[Backend API](https://qr-attendance-app-xj9r.onrender.com/health)**
 
-🚀 **[Live Demo](https://qr-attendance--app.vercel.app/)** &nbsp;·&nbsp; 📡 **[Backend API](https://qr-attendance-app-xj9r.onrender.com/health)**
-
-<br/>
-
-> ⚠️ The backend is hosted on Render's free tier — it may take **10–15 seconds to wake up** on first request. Subsequent requests are fast.
+> ⚠️ The backend is hosted on Render's free tier and may take **10–15 seconds to wake up** on the first request. Subsequent requests are generally faster.
 
 ---
 
@@ -23,17 +19,17 @@
 
 ### 🎓 Student
 
-<img src="./docs/screenshots/student-subject-detail.png" width="49%"/> <img src="./docs/screenshots/student-dashboard.png" width="49%"/>
+<img src="./docs/screenshots/student-subject-detail.png" width="49%" alt="Student subject details" /> <img src="./docs/screenshots/student-dashboard.png" width="49%" alt="Student dashboard" />
 
-<img src="./docs/screenshots/student-scan.png" width="49%"/>
+<img src="./docs/screenshots/student-scan.png" width="49%" alt="Student QR scanner" />
 
 ### 👨‍🏫 Teacher
 
-<img src="./docs/screenshots/teacher-session.png" width="49%"/> <img src="./docs/screenshots/teacher-report.png" width="49%"/>
+<img src="./docs/screenshots/teacher-session.png" width="49%" alt="Teacher attendance session" /> <img src="./docs/screenshots/teacher-report.png" width="49%" alt="Teacher attendance report" />
 
 ### 🛡️ Admin
 
-<img src="./docs/screenshots/admin-panel.png" width="49%"/>
+<img src="./docs/screenshots/admin-panel.png" width="49%" alt="Admin panel" />
 
 > 💡 **Tip for reviewers:** Use the demo credentials below to try the full flow — no sign-up needed.
 
@@ -41,11 +37,11 @@
 
 ## Demo Credentials
 
-| Role    | Email               | Password     |
-|---------|---------------------|--------------|
-| Teacher | teacher@demo.com    | Teacher@123  |
-| Student | student@demo.com    | Student@123  |
-| Admin   | admin@demo.com      | Admin@123    |
+| Role | Email | Password |
+|---|---|---|
+| Teacher | teacher@demo.com | Teacher@123 |
+| Student | student@demo.com | Student@123 |
+| Admin | admin@demo.com | Admin@123 |
 
 ---
 
@@ -53,136 +49,142 @@
 
 Traditional paper attendance has three core problems:
 
-- **Slow** — calling names or signing sheets wastes 5–10 minutes per class
-- **Proxy-prone** — a friend can sign for an absent student
-- **Hard to analyse** — manual sheets don't give percentage breakdowns or alerts
+- **Slow** — calling names or signing sheets wastes 5–10 minutes per class.
+- **Proxy-prone** — a student may sign or mark attendance on behalf of an absent classmate.
+- **Hard to analyse** — manual records make it difficult to calculate attendance percentages and identify students who need alerts.
 
-This app solves all three with two independent anti-proxy layers:
+MarkAttendance addresses these problems with two independent verification layers:
 
-- **Time-based** — QR code rotates every 30 seconds, so a screenshot is useless before it can be shared
-- **Location-based** — GPS verification ensures the student is physically within 150 metres of the classroom
+- **Time-based** — the QR code rotates every 30 seconds. Its short validity window limits how long a shared screenshot or code can be reused.
+- **Location-based** — GPS-based verification checks whether the student is within 150 metres of the classroom location saved for the session.
 
-Both layers must pass for attendance to be marked.
+Both checks must pass for attendance to be marked.
 
 ---
 
 ## Features
 
 ### 👨‍🏫 Teacher
-- Create subjects with a unique enrollment code
-- Start an attendance session with a configurable duration
-- QR code auto-rotates every **30 seconds** — blocks remote proxy attendance
-- **6-character manual code** displayed alongside QR (fallback for students without a camera)
-- GPS coordinates captured on session start — defines the classroom zone
-- Live view of which students have marked attendance
-- End session early at any time
-- View attendance report per subject — percentage per student
-- Export attendance as **CSV**
+
+- Create subjects with a unique enrollment code.
+- Start an attendance session with a configurable duration.
+- QR code automatically rotates every **30 seconds**.
+- Display a **6-character manual code** alongside the QR code as a fallback for students without a camera.
+- Capture GPS coordinates when the session starts to define the classroom zone.
+- View which students have marked attendance during the session.
+- End a session early at any time.
+- View attendance reports per subject, including each student's attendance percentage.
+- Export attendance reports as **CSV**.
 
 ### 👨‍🎓 Student
-- Enroll in subjects using a teacher-provided code
-- Mark attendance by scanning QR code via phone camera
-- Manual code entry as fallback
-- Must be within **150 metres** of the classroom to mark attendance
-- Clear error message if out of range or location permission is denied
-- Dashboard showing attendance percentage per subject
-- Session-by-session history — present or absent for every class
-- **Low attendance alert** when percentage drops below 75%
+
+- Enroll in subjects using a teacher-provided code.
+- Mark attendance by scanning a QR code with a phone camera.
+- Enter a manual code as a fallback.
+- Must be within **150 metres** of the classroom location to mark attendance.
+- Receive a clear error message when out of range or when location permission is denied.
+- View attendance percentage for each subject on the dashboard.
+- View session-by-session attendance history, including present or absent status.
+- Receive a **low-attendance alert** when attendance drops below 75%.
 
 ### 🛡️ Admin
-- View, search, and filter all users by role
-- Edit any user's profile — name, email, role, roll number
-- Delete users — automatically cleans up enrollments and subjects
-- View all subjects across all teachers
+
+- View, search, and filter all users by role.
+- Edit user profiles, including name, email, role, and roll number.
+- Delete users, with associated enrollment and subject cleanup.
+- View all subjects across all teachers.
 
 ### ⚙️ System
-- Automated **email alert** via Resend when student attendance drops below 75%
-- In-app notifications with unread count badge
-- JWT authentication with **refresh token rotation**
-- Role-based route protection — student, teacher, admin
-- Fully responsive — works on mobile and desktop
+
+- Automated **email alerts** via Resend when student attendance drops below 75%.
+- In-app notifications with an unread-count badge.
+- JWT authentication with **refresh token rotation**.
+- Role-based route protection for students, teachers, and admins.
+- Responsive interface for mobile and desktop.
 
 ---
 
 ## How It Works
 
-```
-Teacher starts session
+```text
+Teacher starts an attendance session
         ↓
 Teacher's browser captures GPS coordinates
-Server stores location with the session
+Server stores the classroom location with the session
         ↓
-Server generates QR token + 6-char manual code
-QR token expires in 30 seconds
+Server generates a QR token and a 6-character manual code
+QR token has a 30-second validity period
         ↓
-Teacher screen shows QR image + manual code + countdown timer
+Teacher screen displays the QR code, manual code, and countdown timer
         ↓
-Student scans QR or types manual code
+Student scans the QR code or enters the manual code
 Student's browser captures GPS coordinates
         ↓
-Server validates token → checks enrollment
-Server calculates distance using Haversine formula
-If distance > 150m  → rejected ❌  "You are Xm away from the classroom"
-If distance ≤ 150m  → attendance marked ✅
+Server validates the token/code and checks subject enrollment
+Server calculates the distance using the Haversine formula
+        ↓
+Distance > 150 metres  → attendance rejected
+Distance ≤ 150 metres  → attendance can be marked if all checks pass
         ↓
 Every 30 seconds:
-  — New QR token generated
-  — Old token immediately invalidated
-  — Proxy via screenshot or WhatsApp is blocked
+  — A new QR token is generated
+  — The previous token is accepted only during the 2-second overlap window
+  — The previous token is then invalidated
 ```
 
-**Why two layers?**
-The rotating QR blocks remote proxies but someone physically nearby could still share the code in time. GPS verification closes that loophole — both checks must pass independently.
+### Why two layers?
+
+A rotating QR code limits how long a shared code remains valid, but someone physically nearby could still share a current code. GPS-based verification adds another check by comparing the student's reported location with the classroom location. Both checks must pass independently.
 
 ---
 
 ## Tech Stack
 
-| Layer       | Technology                                       |
-|-------------|--------------------------------------------------|
-| Frontend    | React 18, TypeScript, Vite                       |
-| Styling     | Tailwind CSS, shadcn/ui                          |
-| State       | Zustand (auth), TanStack Query (server state)    |
-| Forms       | React Hook Form + Zod                            |
-| Backend     | Node.js, Express, TypeScript                     |
-| Database    | MongoDB, Mongoose                                |
-| Auth        | JWT (access + refresh tokens), bcrypt            |
-| Email       | Resend                                           |
-| QR Code     | `qrcode` (generation), `html5-qrcode` (scanning) |
-| Geolocation | Browser Geolocation API, Haversine formula       |
-| Deployment  | Vercel (frontend), Render (backend), Atlas (DB)  |
+| Layer | Technology |
+|---|---|
+| Frontend | React 18, TypeScript, Vite |
+| Styling | Tailwind CSS, shadcn/ui |
+| State management | Zustand (auth), TanStack Query (server state) |
+| Forms and validation | React Hook Form, Zod |
+| Backend | Node.js, Express, TypeScript |
+| Database | MongoDB, Mongoose |
+| Authentication | JWT (access and refresh tokens), bcrypt |
+| Email | Resend |
+| QR code | `qrcode` (generation), `html5-qrcode` (scanning) |
+| Geolocation | Browser Geolocation API, Haversine formula |
+| Deployment | Vercel (frontend), Render (backend), MongoDB Atlas (database) |
 
 ---
 
 ## Architecture
 
-```
-client/                     # React frontend
+```text
+client/                         # React frontend
 ├── src/
-│   ├── api/                # Axios API layer per feature
-│   ├── components/         # Shared UI components + layouts
-│   ├── config/             # Axios and Query Client configuration
-│   ├── hooks/              # Custom hooks (QR scanner, session timer)
-│   ├── pages/              # Pages per role (student/teacher/admin)
-│   ├── store/              # Zustand auth store
-│   ├── types/              # TypeScript interfaces
-│   ├── schemas/            # Zod validation schemas
-│   ├── routes/             # React Router with protected routes
-│   └── utils/              # getLocation, helpers
+│   ├── api/                    # Axios API layer per feature
+│   ├── components/             # Shared UI components and layouts
+│   ├── config/                 # Axios and Query Client configuration
+│   ├── hooks/                  # Custom hooks (QR scanner, session timer)
+│   ├── pages/                  # Pages per role (student/teacher/admin)
+│   ├── store/                  # Zustand auth store
+│   ├── types/                  # TypeScript interfaces
+│   ├── schemas/                # Zod validation schemas
+│   ├── routes/                 # React Router with protected routes
+│   └── utils/                  # getLocation and helper utilities
 
-server/                     # Node.js backend
+server/                         # Node.js backend
 ├── src/
-│   ├── config/             # Database connection
-│   ├── constants/          # Status codes, paths
-│   ├── controllers/        # Request handlers
-│   ├── emails/             # Email templates
-│   ├── middleware/         # Auth, roles, error handler, security
-│   ├── models/             # Mongoose models
-│   ├── routes/             # Express routers
-│   ├── schemas/            # Zod validation schemas
-│   ├── services/           # Business logic layer
-│   ├── types/              # TypeScript types
-│   └── utils/              # JWT, cookies, QR, location, email helpers
+│   ├── config/                 # Database connection
+│   ├── constants/              # Status codes and paths
+│   ├── controllers/            # Request handlers
+│   ├── emails/                 # Email templates
+│   ├── middleware/             # Auth, roles, error handler, security
+│   ├── models/                 # Mongoose models
+│   ├── routes/                 # Express routers
+│   ├── schemas/                # Zod validation schemas
+│   ├── services/               # Business logic layer
+│   ├── types/                  # TypeScript types
+│   └── utils/                  # JWT, cookies, QR, location, email helpers
 ```
 
 ---
@@ -190,103 +192,122 @@ server/                     # Node.js backend
 ## Local Setup
 
 ### Prerequisites
-- Node.js 18+
-- MongoDB running locally or an [Atlas](https://www.mongodb.com/atlas) connection string
-- [Resend](https://resend.com) account for email (free tier is sufficient)
 
-### 1. Clone the repo
+- Node.js 18+
+- MongoDB running locally or an [MongoDB Atlas](https://www.mongodb.com/atlas) connection string
+- [Resend](https://resend.com) account for email (the free tier is sufficient)
+
+### 1. Clone the repository
+
+After renaming the GitHub repository to `mark-attendance`, run:
 
 ```bash
-git clone https://github.com/gurwindersingh777/qr-attendance-app.git
-cd qr-attendance-app
+git clone https://github.com/gurwindersingh777/mark-attendance.git
+cd mark-attendance
 ```
 
-### 2. Setup the backend
+### 2. Set up the backend
 
 ```bash
 cd server
 npm install
 cp .env.example .env
-# Fill in your values in .env
+# Fill in the required values in .env
 npm run dev
 ```
 
-### 3. Setup the frontend
+### 3. Set up the frontend
+
+Open another terminal:
 
 ```bash
 cd client
 npm install
 cp .env.example .env
-# Leave VITE_API_URL empty for local dev — it defaults to localhost:4000
+# Leave VITE_API_URL empty for local development — it defaults to localhost:4000
 npm run dev
 ```
 
-### 4. Open the app
+### 4. Open the application
 
-| Service  | URL                          |
-|----------|------------------------------|
-| Frontend | http://localhost:5173        |
-| Backend  | http://localhost:4000/health |
+| Service | URL |
+|---|---|
+| Frontend | http://localhost:5173 |
+| Backend | http://localhost:4000/health |
 
 ---
 
 ## API Overview
 
-| Method | Route                            | Access  | Description                 |
-|--------|----------------------------------|---------|-----------------------------|
-| POST   | `/auth/register`                 | Public  | Create account              |
-| POST   | `/auth/login`                    | Public  | Login                       |
-| POST   | `/subject`                       | Teacher | Create subject              |
-| POST   | `/subject/enroll`                | Student | Enroll by code              |
-| POST   | `/session/start`                 | Teacher | Start session + generate QR |
-| GET    | `/session/:sessionId/qr`         | Teacher | Rotate QR token             |
-| POST   | `/session/mark`                  | Student | Mark attendance             |
-| GET    | `/attendance/summary`            | Student | My attendance %             |
-| GET    | `/attendance/report/subject/:id` | Teacher | All students report         |
-| GET    | `/admin/users`                   | Admin   | All users                   |
-| GET    | `/notification`                  | Any     | My notifications            |
+| Method | Route | Access | Description |
+|---|---|---|---|
+| POST | `/auth/register` | Public | Create account |
+| POST | `/auth/login` | Public | Login |
+| POST | `/subject` | Teacher | Create subject |
+| POST | `/subject/enroll` | Student | Enroll by code |
+| POST | `/session/start` | Teacher | Start session and generate QR |
+| GET | `/session/:sessionId/qr` | Teacher | Retrieve/rotate QR token |
+| POST | `/session/mark` | Student | Mark attendance |
+| GET | `/attendance/summary` | Student | Get own attendance percentage |
+| GET | `/attendance/report/subject/:id` | Teacher | Get all students' attendance report |
+| GET | `/admin/users` | Admin | Retrieve all users |
+| GET | `/notification` | Any authenticated user | Retrieve notifications |
 
 ---
 
 ## Security
 
-- JWT access tokens expire in **1 day** — refresh tokens in **7 days**
-- **Refresh token rotation** — old token invalidated on every refresh
-- **Rate limiting** — 10 attempts per 15 min on auth routes
-- **Helmet** — 15+ HTTP security headers set automatically
-- Request body limited to **10kb**
-- Passwords hashed with **bcrypt** (10 rounds)
-- Role-based middleware on every protected route
-- **Two-layer anti-proxy system** — rotating QR (time-based) + GPS verification (location-based)
-- Location distance calculated server-side using the Haversine formula — client cannot fake it
+- JWT access tokens expire in **1 day**; refresh tokens expire in **7 days**.
+- **Refresh token rotation** invalidates the previously used refresh token on refresh.
+- **Rate limiting** allows 10 attempts per 15 minutes on authentication routes.
+- **Helmet** sets HTTP security headers.
+- Request body size is limited to **10 KB**.
+- Passwords are hashed using **bcrypt** with 10 rounds.
+- Role-based middleware protects authorized routes.
+- **Two-layer attendance verification** combines time-based QR tokens with GPS-based location checks.
+- The backend calculates the distance using the Haversine formula and checks it against the configured 150-metre radius.
+
+> **Location verification note:** Coordinates are obtained through the browser's Geolocation API. The backend performs the distance calculation, but browser-provided GPS coordinates are not inherently tamper-proof and may be spoofed. Location verification should therefore be considered an additional deterrent, not a guarantee that proxy attendance is impossible.
 
 ---
 
 ## Challenges & What I Learned
 
-**Two-layer anti-proxy system** — The rotating QR blocks remote proxies but someone physically nearby could still screenshot and share it within 30 seconds. Adding GPS verification as a second layer closes that loophole — the server calculates distance using the Haversine formula and rejects the request if the student is more than 150 metres from the classroom. Two independent checks — time-based and location-based — make the system genuinely fraud-resistant.
+### Two-layer attendance verification
 
-**Token expiry race conditions** — When the QR token rotated exactly as a student was submitting, requests would fail with a false "invalid token" error. I solved this with a short overlap window: the server accepts the previous token for 2 seconds after rotation, making the UX seamless without meaningfully reducing security.
+A rotating QR code alone cannot completely prevent proxy attendance because someone nearby could share a current code. I added GPS-based location verification as a second layer. The server calculates the distance between the classroom and student coordinates using the Haversine formula and rejects requests outside the configured 150-metre radius. This helped me understand geolocation APIs, server-side validation, and practical security limitations.
 
-**Refresh token rotation** — Implementing silent token refresh with Axios interceptors while avoiding request queuing bugs taught me a lot about how auth flows work in production apps — race conditions when multiple requests fire simultaneously before a token is refreshed required a pending-promise pattern.
+### Token expiration race conditions
 
-**Role-based architecture** — Designing a single Express backend that serves three completely different user experiences (student/teacher/admin) cleanly required thinking carefully about middleware layering and service separation early on.
+When a QR token rotated at the same time a student was submitting attendance, a legitimate request could fail with an invalid-token error. I addressed this with a short overlap window: the server accepts the previous token for 2 seconds after rotation. This makes the submission flow more tolerant of timing differences.
+
+### Refresh token rotation
+
+Implementing silent token refresh with Axios interceptors introduced concurrency challenges. When multiple requests failed because an access token had expired, several refresh requests could be triggered at once. I used a pending-promise pattern to coordinate refresh operations and avoid unnecessary concurrent refresh requests.
+
+### Role-based architecture
+
+Designing a single Express backend for three different user experiences — student, teacher, and admin — required careful separation of permissions and business logic. I organized the application using middleware, routes, controllers, and services to keep responsibilities clear.
 
 ---
 
 ## Deployment
 
-| Service       | Purpose          | Notes                          |
-|---------------|------------------|--------------------------------|
-| Vercel        | Frontend hosting | Auto-deploys on push to `main` |
-| Render        | Backend hosting  | Free tier — cold starts ~10–15s|
-| MongoDB Atlas | Database         | M0 free cluster                |
-| Resend        | Email delivery   | Free tier (3,000 emails/month) |
+| Service | Purpose | Notes |
+|---|---|---|
+| Vercel | Frontend hosting | Auto-deploys on push to `main` |
+| Render | Backend hosting | Free tier — cold starts may take 10–15 seconds |
+| MongoDB Atlas | Database | M0 free cluster |
+| Resend | Email delivery | Free tier: 3,000 emails/month |
 
 ---
 
 ## Author
 
 **Gurwinder Singh**
-[GitHub](https://github.com/gurwindersingh777) 
 
+[GitHub](https://github.com/gurwindersingh777)
+
+---
+
+If you find MarkAttendance useful, consider giving the repository a ⭐ on GitHub.
