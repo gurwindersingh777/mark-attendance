@@ -13,7 +13,7 @@ import { Loader2, Play } from "lucide-react"
 import { Label } from "../ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { cn } from "@/lib/utils"
-import { StartSessionInput, startSessionSchema } from "@/schemas/sesssion.schema"
+import { StartSessionFormInput, startSessionFormSchema, StartSessionInput, startSessionSchema } from "@/schemas/sesssion.schema"
 import { getLocation } from "@/utils/getLocation"
 
 const DURATIONS = [
@@ -43,39 +43,58 @@ export default function StartSessionDialog({ defaultSubjectId }: Props) {
 
   const subjects: Subject[] = subjectsData?.data ?? []
 
-  const { setValue, handleSubmit, formState: { errors } } = useForm<StartSessionInput>({
-    resolver: zodResolver(startSessionSchema),
+  const { setValue, handleSubmit, formState: { errors }, } = useForm<StartSessionFormInput>({
+    resolver: zodResolver(startSessionFormSchema),
     defaultValues: {
-      subjectId: defaultSubjectId ?? '',
+      subjectId: defaultSubjectId ?? "",
       durationMinutes: 60,
-    }
+    },
   })
 
   const { mutate: start, isPending } = useMutation({
     mutationFn: (data: StartSessionInput) => sessionApi.start(data),
+
     onSuccess: (res) => {
       const sessionId = res.data?._id
-      queryClient.invalidateQueries({ queryKey: ['sessions', 'active'] })
-      toast.success('Session started!')
+
+      if (!sessionId) {
+        toast.error("Session ID missing")
+        return
+      }
+
+      queryClient.invalidateQueries({ queryKey: ["sessions", "active"] })
+      toast.success("Session started!")
       setOpen(false)
       navigate(`/teacher/session/${sessionId}`)
     },
+
     onError: (error: any) => {
-      toast.error(error?.response?.data.message || "Something went wrong")
-    }
+      console.error("API Error:", error?.response?.data || error)
+      toast.error(error?.response?.data?.message || "Something went wrong")
+    },
   })
 
-  const onSubmit = handleSubmit(async (data) => {
-    try {
-      setIsGettingLocation(true)
-      const location = await getLocation()
-      start({ ...data, location: location, })
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Unable to access location")
-    } finally {
-      setIsGettingLocation(false)
+  const onSubmit = handleSubmit(
+    async (data) => {
+      try {
+        setIsGettingLocation(true)
+        const userLocation = await getLocation()
+        start({ ...data, location: userLocation })
+      } catch (error) {
+        console.error("Location error:", error)
+        toast.error(error instanceof Error ? error.message : "Unable to access location")
+      } finally {
+        setIsGettingLocation(false)
+      }
+    },
+    (errors) => {
+      console.error("Form validation errors:", errors)
+
+      Object.values(errors).forEach((error) => {
+        if (error?.message) { toast.error(error.message) }
+      })
     }
-  })
+  )
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

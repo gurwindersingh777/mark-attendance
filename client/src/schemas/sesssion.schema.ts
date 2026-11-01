@@ -2,25 +2,32 @@ import z from "zod";
 
 export const location = z.object({
   latitude: z.number(),
-  longitude: z.number()
+  longitude: z.number(),
 })
 
-export const startSessionSchema = z.object({
+export const startSessionFormSchema = z.object({
   subjectId: z.string().min(1, "Subject ID is required"),
-  durationMinutes: z.number().min(1, "Minimum 1 minute").max(180, "Minimum 3 hours"),
-  location
+  durationMinutes: z
+    .number()
+    .min(1, "Minimum 1 minute")
+    .max(180, "Maximum 3 hours"),
+})
+
+export const startSessionSchema = startSessionFormSchema.extend({
+  location,
 })
 
 export const markAttendanceSchema = z
   .object({
     token: z.string().optional(),
     manualCode: z.string().optional(),
-    location
+    location,
   })
   .refine(
-    data => data.token || data.manualCode,
+    (data) => data.token || data.manualCode,
     { message: "Provide QR or manual code" }
   )
 
+export type StartSessionFormInput = z.infer<typeof startSessionFormSchema>
 export type StartSessionInput = z.infer<typeof startSessionSchema>
 export type MarkAttendanceInput = z.infer<typeof markAttendanceSchema>
