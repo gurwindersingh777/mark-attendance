@@ -48,7 +48,7 @@ export default function Login() {
             <QrCode className="w-6 h-6 text-white" />
           </div>
           <h1 className="text-xl font-semibold text-slate-900">
-            QR Attendance App
+            Mark Attendance
           </h1>
         </div>
 

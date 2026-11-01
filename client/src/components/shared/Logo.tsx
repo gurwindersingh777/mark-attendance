@@ -7,7 +7,7 @@ export default function Logo() {
         <QrCode className="w-4 h-4 text-white" />
       </div>
       <span className="font-semibold text-slate-900 text-sm">
-        QR Attendance <br /> <span className="text-xs text-neutral-500 font-light">App</span> 
+        MarkAttendance <br /> <span className="text-xs text-neutral-500 font-light">App</span> 
       </span>
     </div>
   )
