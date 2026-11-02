@@ -16,7 +16,7 @@ api.interceptors.response.use(
     if (error.response?.status === 401 && !original._retry && !isAuthRoute) {
       original._retry = true;
       try {
-        await api.get("/auth/refresh")
+        await api.post("/auth/refresh")
         return api(original);
       } catch {
         useAuthStore.getState().clearUser()
