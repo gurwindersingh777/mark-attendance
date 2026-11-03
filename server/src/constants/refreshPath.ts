@@ -1,1 +1,1 @@
-export const REFRESH_PATH = "/auth/refresh"
+export const REFRESH_PATH = "/api/auth/refresh"
